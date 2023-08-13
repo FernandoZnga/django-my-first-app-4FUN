@@ -91,4 +91,38 @@ This command will take a snapshot of the packages and their current version and 
 ## [Now we can Start with Django Project using Docker]
 First of all, let's start creating a virtual environment, this will encapsulate our application, for development it's really handy. Having a virtual environment will allow you to work on different projects, each project will have their own dependencies, packages and versions.
 Let's run:
+```bash
+$ python -m venv env
+$ source env/bin/activate
+```
+You'll se the word (env) in your command line.
+Let's create our `.env` file and add our secret credentials
+```bash
+$ touch .env
+$ vim .env
+```
 
+Press `i` to start insert, copy the content from `.env.sample` to `.env`, type your database name, database username and database password, press `ESC` then `:` and finally `wq` (write and quit).
+
+One more thin before starting, let's install Django by typing:
+```bash
+$ pip install django
+$ pip freeze > requirements.txt
+```
+Now we are ready to bring it up to life the server and database, let's run:
+```bash
+$ docker-compose run web django-admin startproject myapp .  ## myapp can be changed to your app
+```
+It will download the images, create the containers and install dependencies, basically Django & psycopg2, then creates the project.
+
+After that, you'll se a bunch of new folders, try to start the app running this from the root folder (where Makefile is):
+```bash
+$ make start
+```
+You should see the server running on your [localhost](http://localhost:8000).
+
+And that's it!
+
+I really hope you enjoy this little tutorial to start Django using a Docker container.
+
+Happy Coding!
