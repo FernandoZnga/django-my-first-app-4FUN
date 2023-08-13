@@ -123,6 +123,34 @@ $ make start
 ```
 You should see the server running on your [localhost](http://localhost:8000).
 
+Now that we have our server running, we need to point it to use our brand-new Postgres database. Let's open the file `mysite.settings.py`
+
+We need to import the credentials we already have in the `.env` file, to do so we need a Python package named `dotenv`. Add in the import section of `settings.py` the following:
+```bash
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+```
+Now we can import `.env` variables typing `os.environ.get('<variableNameHere>')`.
+So `DATABASES` section could be like:
+```bash
+DATABASES = {
+    'default': {
+        'ENGINE': "django.db.backends.postgresql",
+        'NAME': os.environ.get('PG_DATABASE'),
+        'USER': os.environ.get('PG_USER'),
+        'PASSWORD': os.environ.get('PG_PASSWORD'),
+        'HOST': '',
+        'PORT': '5432',
+        'TEST': {
+            'NAME': os.environ.get('PG_DATABASE'),
+        }
+    }
+}
+```
+Then you can `make stop`, `make start` and you'll have pointed out to Postgres instead of SQLite3 (db by default). 
+
 And that's it!
 
 I really hope you enjoy this little tutorial to start Django using a Docker container.
