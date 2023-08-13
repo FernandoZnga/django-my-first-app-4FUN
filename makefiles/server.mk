@@ -24,3 +24,6 @@ server.bash: ## Connect to server
 
 server.shell: ## Start a python shell on the server
 	docker-compose run web python manage.py shell
+
+docker.prune: ## Delete all docker containers and volumes
+	docker system prune --all --volumes --force
