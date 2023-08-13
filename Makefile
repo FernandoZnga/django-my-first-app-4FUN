@@ -23,5 +23,7 @@ migrations: database.makemigrations ## Create the migrations for latest changes
 
 migrate: database.migrate ## Apply changes to database
 
+docker-prune: docker.prune
+
 include makefiles/server.mk
 include makefiles/database.mk
