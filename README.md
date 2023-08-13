@@ -1,4 +1,6 @@
 _This project is just 4 fun_
+To get the base version of this repo, just go to [Prject-Start-Point](https://github.com/FernandoZnga/django-my-first-app-4FUN/tree/Prject-Start-Point)
+
 # Writing your first Django app
 
 > _"Django was invented to meet fast-moving newsroom deadlines, while satisfying the tough requirements of experienced web developers."_
