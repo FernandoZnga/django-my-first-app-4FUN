@@ -23,5 +23,11 @@ server.bash: ## Connect to server
 server.shell: ## Start a python shell on the server
 	docker-compose run web python manage.py shell
 
+server.createsuperuser: ## Start a python shell on the server
+	docker-compose run web python manage.py createsuperuser
+
+server.tests: ## Start a python shell on the server
+	docker-compose run web python manage.py test
+
 docker.prune: ## Delete all docker containers and volumes
 	docker system prune --all --volumes --force
