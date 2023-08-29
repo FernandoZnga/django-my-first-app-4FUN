@@ -3,7 +3,7 @@
 ### COMMANDS
 # ----------
 
-rebuild: server.rebuild ## Rebuild service web
+build || rebuild: server.build ## Rebuild service web
 
 install: server.install ## Install dependencies on Docker container
 
@@ -11,17 +11,21 @@ start: server.start ## Starts the server on Docker container
 
 stop: server.stop ## Stops the server on Docker container
 
-daemon: server.daemon ## Starts the server in daemon
+start-daemon: server.daemon ## Starts the server in daemon
 
-bash: server.bash ## Start a terminal from server
+server-bash: server.bash ## Start a terminal from server
 
-shell: server.shell ## Starts the REPL from Python Docker container
+db-bash: database.bash ## Start a terminal from db server
 
-connect: database.connect ## Connect to Postgres db on Docker container
+server-shell: server.shell ## Starts the REPL from Python Docker container
 
-migrations: database.makemigrations ## Create the migrations for latest changes
+db-connect: database.connect ## Connect to Postgres db on Docker container
 
-migrate: database.migrate ## Apply changes to database
+db-migrations: database.makemigrations ## Create the migrations for latest changes
+
+db-migrate: database.migrate ## Apply changes to database
+
+docker-prune: docker.prune
 
 include makefiles/server.mk
 include makefiles/database.mk

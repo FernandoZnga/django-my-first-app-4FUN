@@ -10,9 +10,10 @@ To get the base version of this repo, just go to [Prject-Start-Point](https://gi
 This project includes a couple of low level extras, Django will be build on top of it. The intention is so you can have another option to build apps locally, fast and easy.
 
 ### Table of Content
-## 1. [First: ToDo or Check]
-## 2. [Folder Structure]
-## 3. [Now we can Start with Django Project using Docker]
+1. [First: ToDo or Check](#first-todo-or-check)
+2. [Folder Structure](#folder-structure)
+3. [Now we can Start with Django Project using Docker](#now-we-can-start-with-django-project-using-docker)
+4. [Let's work with the new Database]()
 
 --------
 
@@ -86,7 +87,7 @@ Notice that the Postgres credentials are requested here, those credential should
 Finally, we have the `requirements.txt` and `requirements-dev.txt`, as name suggest, the last one should only include those packages needed for development purposes, and those other packages needed for the application to fully run, should be included in the first one.
 You can add all packages using a Python command:
 ```bash
-python freeze > requirements-dev.txt
+pip freeze > requirements-dev.txt
 ```
 This command will take a snapshot of the packages and their current version and logged into the file `requirements-dev.txt`. 
 
@@ -122,6 +123,49 @@ After that, you'll se a bunch of new folders, try to start the app running this 
 $ make start
 ```
 You should see the server running on your [localhost](http://localhost:8000).
+
+## Let's work with the new Database
+Now that we have our server and database running in it own docker container, we need to add a Database user with the minimum permissions and the database where all objects will be stored.
+
+Just run 
+```bash
+$ make db-connect
+```
+This command will pick the `PG_USERNAME` and `PG_DATABASE` to connect into the docker container. Once we are in we will run:
+```bash
+postgres=# CREATE DATABASE <myproject>; ## Output: CREATE DATABASE
+postgres=# CREATE USER <myprojectuser> WITH PASSWORD '<password>'; ## Output CREATE ROLE
+postgres=# ALTER ROLE <myprojectuser> SET client_encoding TO 'utf8'; ## Output ALTER ROLE
+postgres=# ALTER ROLE <myprojectuser> SET default_transaction_isolation TO 'read committed'; ## Output ALTER ROLE
+postgres=# ALTER ROLE <myprojectuser> SET timezone TO 'UTC'; ## Output ALTER ROLE
+postgres=# GRANT ALL PRIVILEGES ON DATABASE <myproject> TO <myprojectuser>; ## Output GRANT
+postgres=# GRANT ALL ON SCHEMA public TO <myprojectuser>; ## Output GRANT
+postgres=# GRANT ALL ON SCHEMA public TO public; ## Output GRANT
+postgres=# \q ## Quit session
+```
+
+Now that we have our server running and our database user, we need to point it to use our brand-new Postgres database. Let's open the file `mysite.settings.py`
+
+We need to import the credentials we already have in the `.env` file, to do so we need a Python package named `os`. Add in the import section of `settings.py` the following:
+```bash
+import os
+...
+```
+Now we can import `.env` variables typing `os.environ.get('<variableNameHere>')`.
+So `DATABASES` section could be like:
+```bash
+DATABASES = {
+    'default': {
+        'ENGINE': "django.db.backends.postgresql",
+        'NAME': os.environ['DB_DATABASE'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_POST'],
+        }
+    }
+```
+Then you can `make stop`, `make start` and you'll have pointed out to Postgres docker container instead of SQLite3 (db by default). 
 
 And that's it!
 

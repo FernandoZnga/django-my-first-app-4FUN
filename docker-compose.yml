@@ -2,14 +2,17 @@ version: '3'
 
 services:
   db:
+    container_name: app_database
     image: postgres
-    restart: always
     environment:
       POSTGRES_DB: ${PG_DATABASE}
       POSTGRES_USER: ${PG_USER}
       POSTGRES_PASSWORD: ${PG_PASSWORD}
-
+    ports:
+      - "5432:5432"
+    restart: always
   web:
+    container_name: web_app
     env_file:
       - .env
     build: .
