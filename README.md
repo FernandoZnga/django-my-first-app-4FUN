@@ -141,6 +141,7 @@ postgres=# ALTER ROLE <myprojectuser> SET timezone TO 'UTC'; ## Output ALTER ROL
 postgres=# GRANT ALL PRIVILEGES ON DATABASE <myproject> TO <myprojectuser>; ## Output GRANT
 postgres=# GRANT ALL ON SCHEMA public TO <myprojectuser>; ## Output GRANT
 postgres=# GRANT ALL ON SCHEMA public TO public; ## Output GRANT
+postgres=# ALTER USER <myprojectuser> CREATEDB; ## Output ALTER ROLE
 postgres=# \q ## Quit session
 ```
 

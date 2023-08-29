@@ -25,6 +25,10 @@ db-migrations: database.makemigrations ## Create the migrations for latest chang
 
 db-migrate: database.migrate ## Apply changes to database
 
+server-createsuperuser: server.createsuperuser ## Create a super user into the system
+
+run-tests: server.tests ## Create a super user into the system
+
 docker-prune: docker.prune
 
 include makefiles/server.mk
