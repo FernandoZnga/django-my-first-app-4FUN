@@ -10,6 +10,8 @@ COPY requirements-dev.txt /code/
 
 COPY requirements.txt /code/
 
+RUN pip install --upgrade pip
+
 RUN pip install --no-cache-dir -r requirements-dev.txt
 
 COPY . /code/

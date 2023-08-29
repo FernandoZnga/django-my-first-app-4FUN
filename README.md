@@ -10,9 +10,9 @@ To get the base version of this repo, just go to [Prject-Start-Point](https://gi
 This project includes a couple of low level extras, Django will be build on top of it. The intention is so you can have another option to build apps locally, fast and easy.
 
 ### Table of Content
-## 1. [First: ToDo or Check]
-## 2. [Folder Structure]
-## 3. [Now we can Start with Django Project using Docker]
+1. [First: ToDo or Check](#first-todo-or-check)
+2. [Folder Structure](#folder-structure)
+3. [Now we can Start with Django Project using Docker](#now-we-can-start-with-django-project-using-docker)
 
 --------
 
@@ -86,7 +86,7 @@ Notice that the Postgres credentials are requested here, those credential should
 Finally, we have the `requirements.txt` and `requirements-dev.txt`, as name suggest, the last one should only include those packages needed for development purposes, and those other packages needed for the application to fully run, should be included in the first one.
 You can add all packages using a Python command:
 ```bash
-python freeze > requirements-dev.txt
+pip freeze > requirements-dev.txt
 ```
 This command will take a snapshot of the packages and their current version and logged into the file `requirements-dev.txt`. 
 
